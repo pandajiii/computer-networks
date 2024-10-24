@@ -1,0 +1,63 @@
+1) https://www.studocu.com/in/document/university-of-mumbai/computer-network/wireshark-understand-the-operations-of-tcpip-layers/3649999https://www.studocu.com/in/document/university-of-mumbai/computer-network/wireshark-understand-the-operations-of-tcpip-layers/3649999
+
+2) 
+To understand the operation of TCP/IP layers using Wireshark, you can perform a simple experiment where you capture and analyze network traffic generated during a specific activity, such as accessing a website. This will help you observe how data is transmitted and received across the different layers of the TCP/IP model (Application, Transport, Network, and Link layers). Follow these steps:
+
+### 1. **Set Up Wireshark**
+   - Download and install Wireshark from [Wireshark's official website](https://www.wireshark.org/).
+   - Open Wireshark as an administrator (on Windows) or with appropriate permissions (on Linux/macOS).
+
+### 2. **Start a Packet Capture**
+   - Once Wireshark is open, you will see a list of available network interfaces. Choose the correct one for your connection (e.g., Ethernet or Wi-Fi).
+   - Click on the interface to start capturing packets.
+
+### 3. **Generate Network Traffic**
+   - Open your web browser and navigate to a website (e.g., `www.google.com`). This activity generates packets that will traverse the TCP/IP layers.
+   - Once the page has loaded, return to Wireshark and stop the capture by clicking on the red square button in the top-left corner.
+
+### 4. **Filter the Traffic**
+   - Use filters to narrow down the results. To see HTTP or HTTPS traffic (which operates at the application layer):
+     - Apply the filter: `http` (for HTTP traffic) or `tls` (for HTTPS traffic).
+   - To view TCP traffic specifically (transport layer), use the filter: `tcp`.
+   - To see only IP packets (network layer), use the filter: `ip`.
+
+### 5. **Analyze Packets Across Layers**
+
+#### **Application Layer (HTTP/HTTPS)**
+   - Look for packets with the protocol column indicating HTTP or HTTPS.
+   - Click on an HTTP packet to expand the details. You will see the request or response message, including headers and content (e.g., `GET`, `POST` requests).
+   - HTTPS traffic will be encrypted, so details will be less visible unless you have decryption capabilities.
+
+#### **Transport Layer (TCP)**
+   - Filter for TCP packets (`tcp`). Click on a TCP packet and examine the following fields:
+     - **Source Port** and **Destination Port**: Port numbers used for communication (e.g., port 80 for HTTP, port 443 for HTTPS).
+     - **Sequence Number**: Indicates the order of bytes sent.
+     - **Acknowledgment Number**: Confirms receipt of previous data.
+     - **Flags**: Important flags like SYN, ACK, FIN, and RST indicate different phases of the TCP connection (setup, data transfer, and termination).
+   
+#### **Network Layer (IP)**
+   - Filter for IP packets (`ip`). This will show both IPv4 and IPv6 traffic.
+   - Click on an IP packet and examine the following fields:
+     - **Source IP** and **Destination IP**: The IP addresses involved in the communication.
+     - **Time to Live (TTL)**: Limits the lifespan of a packet.
+     - **Protocol**: Shows the protocol being used (e.g., TCP, UDP).
+
+#### **Link Layer (Ethernet)**
+   - Click on any packet and examine the Ethernet frame details (link layer).
+   - Look for the **Source MAC Address** and **Destination MAC Address**, which are used for local network communication.
+
+### 6. **Interpret the Flow**
+   - By analyzing the sequence of packets, you can observe the 3-way TCP handshake (SYN, SYN-ACK, ACK) when establishing a connection.
+   - Examine the application data transferred, then look at the FIN or RST packets when the session is terminated.
+
+### 7. **Save or Export the Capture**
+   - Once you have finished analyzing the packets, you can save the capture for future reference or export specific data as a `.pcap` file for sharing or deeper analysis.
+
+### Example Walkthrough
+1. **DNS Request/Response** (Optional): Before establishing a TCP connection, a DNS lookup is performed if the domain is not cached. Filter with `dns` to see the request to resolve the domain name to an IP address.
+2. **TCP Handshake**: Apply the `tcp` filter and look for the 3-way handshake (SYN, SYN-ACK, ACK).
+3. **HTTP Request/Response**: Filter by `http` to see the HTTP `GET` request and the server’s `HTTP/200 OK` response.
+4. **TCP Termination**: Look for `FIN` packets to observe how the connection is closed.
+
+### Conclusion
+By capturing and analyzing the packets in Wireshark, you gain a detailed view of how data moves through the TCP/IP layers, from the application down to the link layer, helping you understand the flow of network traffic and the role of each layer in the process.
